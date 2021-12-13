@@ -1,6 +1,8 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
+[ext_resource path="res://Player/Blaster.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/skaterFemaleA.png" type="Texture" id=2]
+[ext_resource path="res://Player/Player.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -4646,6 +4648,7 @@ nodes/output/position = Vector2( 760, 150 )
 node_connections = [ "output", 0, "Idle_Run", "Idle_Run", 0, "Idle", "Idle_Run", 1, "Run" ]
 
 [node name="Player" type="KinematicBody"]
+script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.92101, 0.21824 )
@@ -4885,6 +4888,13 @@ mesh = SubResource( 2 )
 skin = SubResource( 3 )
 material/0 = SubResource( 4 )
 
+[node name="BoneAttachment" type="BoneAttachment" parent="Root/Skeleton"]
+transform = Transform( -0.806612, 0.136412, 0.575135, 0.451241, -0.486377, 0.748214, 0.381794, 0.863033, 0.330763, -0.656683, 1.33823, 0.249206 )
+bone_name = "right_hand_thumb_1"
+
+[node name="Blaster" parent="Root/Skeleton/BoneAttachment" instance=ExtResource( 1 )]
+transform = Transform( -1.28524, 0.453667, -0.626373, -0.0330038, 1.18156, 0.923492, 0.772702, 0.805055, -1.00241, -0.45, 0.45, -0.26 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 5 )
 anims/Crouch = SubResource( 6 )
@@ -4904,5 +4914,4 @@ anims/Walk = SubResource( 18 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 22 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/Idle_Run/blend_amount = 0.0
